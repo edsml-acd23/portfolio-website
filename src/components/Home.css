@@ -1,0 +1,148 @@
+.terminal {
+  width: 80%;
+  max-width: 800px;
+  margin: 50px auto;
+  background-color: #2d2d2d;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+.terminal-header {
+  background-color: #3c3c3c;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.red { background-color: #ff5f56; }
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #27c93f; }
+
+.terminal-body {
+  padding: 20px;
+  padding-top: 40px;  /* Increased top padding */
+  padding-bottom: 60px;  /* Increased bottom padding */
+  height: calc(100% - 50px);
+  overflow-y: auto;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  margin: 0;
+  padding: 5px 0;
+}
+
+.prompt {
+  color: #27c93f;
+}
+
+.command {
+  color: #f0f0f0;
+}
+
+.output {
+  color: #bababa;
+  margin: 0 0 15px 20px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.line, .output {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: 
+    typing 3s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+.welcome-line {
+  color: #f0f0f0;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Add this new class for the content wrapper */
+.terminal-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Adjust the input line positioning */
+.input-line {
+  position: sticky;
+  bottom: 20px;
+  background-color: #2d2d2d;  /* Match this with your terminal background color */
+  padding: 10px 0;
+}
+
+.terminal-link {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.terminal-link:hover {
+  color: #00ff00;  /* Change to your preferred hover color */
+}
+
+.output-line {
+  margin-bottom: 5px;  /* Add some space between output lines */
+}
+
+.valid-command {
+  background-color: rgba(0, 255, 0, 0.2) !important;  /* Subtle green background */
+}
+
+.invalid-command {
+  background-color: rgba(255, 0, 0, 0.2) !important;  /* Subtle red background */
+}
+
+/* Alternative: Use underline instead of background */
+/*
+.valid-command {
+  text-decoration: underline #00ff00 !important;
+}
+
+.invalid-command {
+  text-decoration: underline #ff0000 !important;
+}
+*/
+
+/* Ensure placeholder color remains consistent */
+#user-input {
+  background: none;
+  border: none;
+  color: #f0f0f0;  /* Keep text color white */
+  font-family: inherit;
+  font-size: inherit;
+  flex-grow: 1;
+  outline: none;
+  padding: 0 4px;  /* Add some padding for the background indicator */
+}
+
+#user-input::placeholder {
+  color: #f0f0f0;
+}
