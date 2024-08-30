@@ -84,11 +84,21 @@ function Home() {
             {parts.map((part, i) => {
               const trimmedPart = part.trim();
               if (trimmedPart.includes(':http')) {
-                const [linkText, url] = trimmedPart.split(':');
+                const [linkText, ...urlParts] = trimmedPart.split(':');
+                const url = urlParts.join(':'); // Rejoin the URL parts in case there are colons in the URL
                 return (
                   <React.Fragment key={i}>
                     {i > 0 && ' | '}
-                    <a href={url} target="_blank" rel="noopener noreferrer" className="terminal-link">
+                    <a 
+                      href={url}
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="terminal-link"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.open(url, '_blank', 'noopener,noreferrer');
+                      }}
+                    >
                       {linkText}
                     </a>
                   </React.Fragment>
@@ -121,7 +131,7 @@ function Home() {
     if (lowercaseCommand in commands) {
       response = renderOutput(commands[lowercaseCommand]);
       if (lowercaseCommand === 'contact') {
-        response = response.map((line, index) => {
+        response = commands[lowercaseCommand].split('\n').map((line, index) => {
           if (line.startsWith('Email:')) {
             return <div key={index}>{line}</div>;
           } else if (line.startsWith('LinkedIn:')) {
