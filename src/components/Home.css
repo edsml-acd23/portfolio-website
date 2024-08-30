@@ -1,7 +1,7 @@
 .terminal {
   width: 80%;
   max-width: 800px;
-  margin: 50px auto;
+  margin: 20px auto;  /* Reduced top margin */
   background-color: #2d2d2d;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -166,16 +166,19 @@
 /* Updated styles for external links */
 .external-links {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
-  padding: 5px;
-  font-size: 12px;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
+  padding: 3px;
 }
 
 .external-link {
   color: #ffffff;
   text-decoration: none;
-  margin: 0 5px;
+  margin: 0 3px;
   opacity: 0.7;
   transition: opacity 0.3s;
   font-weight: bold;
@@ -188,12 +191,21 @@
 
 .link-separator {
   color: #ffffff;
-  margin: 0 5px;
+  margin: 0 3px;
   opacity: 0.7;
 }
 
-/* Mobile styles for external links */
+/* Mobile styles */
 @media (max-width: 768px) {
+  .terminal {
+    width: 95%;  /* Increased width on mobile */
+    margin: 10px auto;  /* Further reduced top margin on mobile */
+  }
+
+  .terminal-body {
+    padding-bottom: 100px;  /* Increased bottom padding on mobile */
+  }
+
   .external-links {
     position: fixed;
     bottom: 5px;
