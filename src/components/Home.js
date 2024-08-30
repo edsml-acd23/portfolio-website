@@ -37,6 +37,9 @@ function Home() {
   const [inputIsValid, setInputIsValid] = useState(null);
   const inputRef = useRef(null);
 
+  const [isMobile, setIsMobile] = useState(false);
+  const [showStartTyping, setShowStartTyping] = useState(true);
+
   useEffect(() => {
     if (outputRef.current) {
       outputRef.current.scrollTop = outputRef.current.scrollHeight;
@@ -55,13 +58,22 @@ function Home() {
 
     window.addEventListener('keydown', handleKeyDown);
 
+    const checkMobile = () => {
+      setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', checkMobile);
     };
   }, [output]);
 
   const processCommand = (command) => {
     const lowercaseCommand = command.toLowerCase().trim();
+    const isValid = lowercaseCommand === 'clear' || lowercaseCommand in commands;
 
     if (lowercaseCommand === 'clear') {
       setOutput([]);
@@ -95,7 +107,13 @@ function Home() {
       response = `Command not found: ${command}. Type 'help' for available commands.`;
     }
 
-    setOutput(prev => [...prev, `$ ${command}`, response]);
+    setOutput(prev => [
+      ...prev, 
+      <div key={`command-${prev.length}`} className={`output-line ${isValid ? 'valid-command' : 'invalid-command'}`}>
+        $ {command}
+      </div>,
+      response
+    ]);
     setCommandHistory(prev => {
       const newHistory = [command, ...prev.filter(cmd => cmd !== command)].slice(0, maxHistoryLength);
       return newHistory;
@@ -144,6 +162,13 @@ function Home() {
     setOutput([]);
   };
 
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      setShowStartTyping(false);
+    }
+  };
+
   console.log('Welcome message:', welcomeMessage);
 
   return (
@@ -160,6 +185,11 @@ function Home() {
               <div key={`output-${index}`} className="output-line">{line}</div>
             ))}
           </div>
+          {isMobile && showStartTyping && (
+            <button className="start-typing-button" onClick={focusInput}>
+              Start Typing
+            </button>
+          )}
           <form onSubmit={handleInputSubmit} className="input-line">
             <span className="prompt">$</span>
             <input
@@ -169,8 +199,8 @@ function Home() {
               value={inputValue}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
+              onFocus={() => setShowStartTyping(false)}
               className={inputIsValid === null ? '' : inputIsValid ? 'valid-command' : 'invalid-command'}
-              autoFocus
             />
             <button type="submit" className="enter-button">Enter</button>
           </form>
