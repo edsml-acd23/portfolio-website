@@ -3,16 +3,31 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
 
 const commands = {
-  about: "I'm Andrei Danila, an ML Researcher/Engineer and recent graduate from Imperial College London.",
-  skills: "My skills include: PyTorch, HuggingFace, CUDA, GCP, and more.",
-  research: "I specialize in language transformers and text comparison techniques. My latest work involves using Wiener Filters for embedded text comparison and will soon be available on arXiv.",
+  about: "I'm Andrei Danila, an ML Researcher/Engineer and recent graduate from Imperial College London. I consider myself a full-stack ML developer, with a special interest in SOTA models and their applications.",
+  skills: "Tech stack: PyTorch, Tensorflow, HuggingFace, CUDA (C/C++), Google Cloud Platform, Docker, HPC.",
+  research: "I specialize in language transformers and text comparison techniques. My latest work involves using Wiener Filters for embedded text comparison and will soon be available on arXiv. I've also conducted research on storm prediction (from satellite imagery) for disaster response.",
   contact: "You can reach me at:\nEmail: andrei.c.danila@gmail.com\nLinkedIn: https://www.linkedin.com/in/andreidanila10052000/",
-  help: "Available commands: about, skills, research, contact, pwd, clear",
-  pwd: "~/Earth/UnitedKingdom/London"
+  cv: "Link available soon",
+  help: "Available commands: about, skills, research, contact, pwd, clear, python",
+  pwd: "~/Earth/UnitedKingdom/London",
+  python: [
+    '>>> import life',
+    '>>> life.meaning()',
+    '42',
+    '>>> life.purpose()',
+    '"To create more bugs for developers to fix"',
+    '>>> import happiness',
+    'ImportError: happiness module not found. Try "import coffee" instead.',
+    '>>> import time',
+    '>>> time.sleep(28800)  # Simulating a workday',
+    'KeyboardInterrupt: User got bored and hit Ctrl+C',
+    '>>> exit()',
+    'Don\'t forget to touch grass!'
+  ].join('\n'),
 };
 
 function Home() {
-  const welcomeMessage = ['Welcome to my website', 'Type \'help\' for available commands.'];
+  const welcomeMessage = ['Welcome to my website!', ' My name is Andrei Danila, a Machine Learning Researcher/Engineer.', 'Type \'help\' for available commands.'];
   const [output, setOutput] = useState(welcomeMessage);
   const [inputValue, setInputValue] = useState('');
   const [commandHistory, setCommandHistory] = useState([]);
@@ -20,10 +35,15 @@ function Home() {
   const outputRef = useRef(null);
   const maxHistoryLength = 30;
   const [inputIsValid, setInputIsValid] = useState(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (outputRef.current) {
       outputRef.current.scrollTop = outputRef.current.scrollHeight;
+    }
+
+    if (inputRef.current) {
+      inputRef.current.focus();
     }
 
     const handleKeyDown = (e) => {
@@ -45,6 +65,11 @@ function Home() {
 
     if (lowercaseCommand === 'clear') {
       setOutput([]);
+      return;
+    }
+
+    if (lowercaseCommand.includes('sudo')) {
+      setOutput(prev => [...prev, `$ ${command}`, "Using sudo is forbidden. The administrator has been alerted!"]);
       return;
     }
 
@@ -122,30 +147,53 @@ function Home() {
   console.log('Welcome message:', welcomeMessage);
 
   return (
-    <div className="terminal-window">
-      <div className="terminal-header">
-        <span className="button red"></span>
-        <span className="button yellow"></span>
-        <span className="button green"></span>
-      </div>
-      <div className="terminal-body" ref={outputRef}>
-        <div className="terminal-content">
-          {output.map((line, index) => (
-            <div key={`output-${index}`} className="output-line">{line}</div>
-          ))}
+    <div className="terminal-container" style={{ backgroundColor: '#2d2d2d', padding: '20px', borderRadius: '10px' }}>
+      <div className="terminal-window">
+        <div className="terminal-header">
+          <span className="button red"></span>
+          <span className="button yellow"></span>
+          <span className="button green"></span>
         </div>
-        <form onSubmit={handleInputSubmit} className="input-line">
-          <span className="prompt">$</span>
-          <input
-            type="text"
-            id="user-input"
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            className={inputIsValid === null ? '' : inputIsValid ? 'valid-command' : 'invalid-command'}
-            autoFocus
-          />
-        </form>
+        <div className="terminal-body" ref={outputRef}>
+          <div className="terminal-content">
+            {output.map((line, index) => (
+              <div key={`output-${index}`} className="output-line">{line}</div>
+            ))}
+          </div>
+          <form onSubmit={handleInputSubmit} className="input-line">
+            <span className="prompt">$</span>
+            <input
+              type="text"
+              id="user-input"
+              ref={inputRef}
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              className={inputIsValid === null ? '' : inputIsValid ? 'valid-command' : 'invalid-command'}
+              autoFocus
+            />
+            <button type="submit" className="enter-button">Enter</button>
+          </form>
+        </div>
+      </div>
+      <div className="external-links">
+        <a 
+          href="https://www.linkedin.com/in/andreidanila10052000/" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="external-link"
+        >
+          LinkedIn
+        </a>
+        <span className="link-separator">|</span>
+        <a 
+          href="https://www.google.com" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="external-link"
+        >
+          CV
+        </a>
       </div>
     </div>
   );

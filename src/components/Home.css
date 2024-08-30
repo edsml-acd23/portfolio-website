@@ -29,7 +29,7 @@
 .terminal-body {
   padding: 20px;
   padding-top: 40px;  /* Increased top padding */
-  padding-bottom: 60px;  /* Increased bottom padding */
+  padding-bottom: 80px;  /* Increased bottom padding */
   height: calc(100% - 50px);
   overflow-y: auto;
   color: #f0f0f0;
@@ -95,8 +95,40 @@
 .input-line {
   position: sticky;
   bottom: 20px;
-  background-color: #2d2d2d;  /* Match this with your terminal background color */
+  background-color: #2d2d2d;
   padding: 10px 0;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;  /* Added margin-top */
+}
+
+#user-input {
+  background: none;
+  border: none;
+  color: #f0f0f0;
+  font-family: inherit;
+  font-size: inherit;
+  flex-grow: 1;
+  outline: none;
+  padding: 14px 4px;
+  caret-color: #f0f0f0;
+}
+
+/* New styles for the enter button */
+.enter-button {
+  background-color: #095d16;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.enter-button:hover {
+  background-color: #4c4c4c;
 }
 
 .terminal-link {
@@ -113,36 +145,44 @@
 }
 
 .valid-command {
-  background-color: rgba(0, 255, 0, 0.2) !important;  /* Subtle green background */
+  color: #00ff00 !important;  /* Green text color */
 }
 
 .invalid-command {
-  background-color: rgba(255, 0, 0, 0.2) !important;  /* Subtle red background */
+  color: #ff0000 !important;  /* Red text color */
 }
-
-/* Alternative: Use underline instead of background */
-/*
-.valid-command {
-  text-decoration: underline #00ff00 !important;
-}
-
-.invalid-command {
-  text-decoration: underline #ff0000 !important;
-}
-*/
 
 /* Ensure placeholder color remains consistent */
-#user-input {
-  background: none;
-  border: none;
-  color: #f0f0f0;  /* Keep text color white */
-  font-family: inherit;
-  font-size: inherit;
-  flex-grow: 1;
-  outline: none;
-  padding: 0 4px;  /* Add some padding for the background indicator */
-}
-
 #user-input::placeholder {
   color: #f0f0f0;
+}
+
+/* Remove this rule as it's not needed for caret color */
+/* #user-input::selection {
+  background-color: transparent;
+} */
+
+/* New styles for external links */
+.external-links {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(45, 45, 45, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.external-link {
+  color: #f0f0f0;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.external-link:hover {
+  text-decoration: underline;
+}
+
+.link-separator {
+  color: #f0f0f0;
+  margin: 0 5px;
 }
