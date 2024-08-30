@@ -4,11 +4,15 @@ import './Home.css';
 
 const commands = {
   about: "I'm Andrei Danila, an ML Researcher/Engineer and recent graduate from Imperial College London. I consider myself a full-stack ML developer, with a special interest in SOTA models and their applications.",
-  skills: "Tech stack: PyTorch, Tensorflow, HuggingFace, CUDA (C/C++), Google Cloud Platform, Docker, HPC.",
-  research: "I specialize in language transformers and text comparison techniques. My latest work involves using Wiener Filters for embedded text comparison and will soon be available on arXiv. I've also conducted research on storm prediction (from satellite imagery) for disaster response.",
+  skills: "Machine Learning: Deep Learning (NLP, Vision, Generative), LLMs, classic ML \nTech stack: PyTorch, Tensorflow, HuggingFace, CUDA (C/C++), Google Cloud Platform, Docker, HPC.",
+  projects: [
+    "1. Convolution Revolution: Wiener Filters for Embedded Text Comparison | Preprint:https://arxiv.org/abs/example | GitHub:https://github.com/example/convolution-revolution",
+    "2. Satellite Imagery Storm Prediction | GitHub:https://github.com/example/storm-prediction",
+    "3. Job Prepr: Practice Video Interviews with AI | GitHub:https://github.com/example/job-prepr | YouTube:https://youtube.com/watch?v=example"
+  ].join('\n'),
   contact: "You can reach me at:\nEmail: andrei.c.danila@gmail.com\nLinkedIn: https://www.linkedin.com/in/andreidanila10052000/",
   cv: "Link available soon",
-  help: "Available commands: about, skills, research, contact, pwd, clear, python",
+  commands: "Available commands: about, skills, projects, contact, cv, pwd, clear, python",
   pwd: "~/Earth/UnitedKingdom/London",
   python: [
     '>>> import life',
@@ -27,7 +31,7 @@ const commands = {
 };
 
 function Home() {
-  const welcomeMessage = ['Welcome to my website!', ' My name is Andrei Danila, a Machine Learning Researcher/Engineer.', 'Type \'help\' for available commands.'];
+  const welcomeMessage = ['My name is Andrei Danila, a Machine Learning Researcher/Engineer.', 'Welcome to my website! It is an interactive CV, just start typing to see what I\'ve been up to.', 'Type \'commands\' for available commands.'];
   const [output, setOutput] = useState(welcomeMessage);
   const [inputValue, setInputValue] = useState('');
   const [commandHistory, setCommandHistory] = useState([]);
@@ -71,6 +75,34 @@ function Home() {
     };
   }, [output]);
 
+  const renderOutput = (text) => {
+    return text.split('\n').map((line, index) => {
+      if (line.includes('|')) {
+        const parts = line.split('|');
+        return (
+          <div key={index} className="output-line">
+            {parts.map((part, i) => {
+              const trimmedPart = part.trim();
+              if (trimmedPart.includes(':http')) {
+                const [linkText, url] = trimmedPart.split(':');
+                return (
+                  <React.Fragment key={i}>
+                    {i > 0 && ' | '}
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="terminal-link">
+                      {linkText}
+                    </a>
+                  </React.Fragment>
+                );
+              }
+              return <React.Fragment key={i}>{i > 0 && ' | '}{trimmedPart}</React.Fragment>;
+            })}
+          </div>
+        );
+      }
+      return <div key={index} className="output-line">{line}</div>;
+    });
+  };
+
   const processCommand = (command) => {
     const lowercaseCommand = command.toLowerCase().trim();
     const isValid = lowercaseCommand === 'clear' || lowercaseCommand in commands;
@@ -87,9 +119,9 @@ function Home() {
 
     let response;
     if (lowercaseCommand in commands) {
-      response = commands[lowercaseCommand];
+      response = renderOutput(commands[lowercaseCommand]);
       if (lowercaseCommand === 'contact') {
-        response = response.split('\n').map((line, index) => {
+        response = response.map((line, index) => {
           if (line.startsWith('Email:')) {
             return <div key={index}>{line}</div>;
           } else if (line.startsWith('LinkedIn:')) {

@@ -143,6 +143,8 @@
 
 .output-line {
   margin-bottom: 5px;  /* Add some space between output lines */
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .valid-command {
