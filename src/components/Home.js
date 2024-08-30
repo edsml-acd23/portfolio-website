@@ -31,7 +31,7 @@ const commands = {
 };
 
 function Home() {
-  const welcomeMessage = ['My name is Andrei Danila, a Machine Learning Researcher/Engineer.', 'Welcome to my website! It is an interactive CV, just start typing to see what I\'ve been up to.', 'Type \'commands\' for available commands.'];
+  const welcomeMessage = ['My name is Andrei Danila, a Machine Learning Researcher/Engineer.', 'Welcome to my website! It is an interactive CV, just start typing to see what I\'ve been up to.', 'Type \'commands\' for to get started.'];
   const [output, setOutput] = useState(welcomeMessage);
   const [inputValue, setInputValue] = useState('');
   const [commandHistory, setCommandHistory] = useState([]);
@@ -146,7 +146,7 @@ function Home() {
         });
       }
     } else {
-      response = `Command not found: ${command}. Type 'help' for available commands.`;
+      response = `Command not found: ${command}. Type 'commands' for available commands.`;
     }
 
     setOutput(prev => [
