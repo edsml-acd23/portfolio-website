@@ -197,24 +197,27 @@
 
 /* Mobile styles */
 @media (max-width: 768px) {
-  .terminal {
-    width: 95%;  /* Increased width on mobile */
-    margin: 10px auto;  /* Further reduced top margin on mobile */
+  .terminal-container {
+    padding-top: 10px; /* Add a small top padding */
+    padding-bottom: 60px; /* Add bottom padding to create space for links */
   }
 
-  .terminal-body {
-    padding-bottom: 100px;  /* Increased bottom padding on mobile */
+  .terminal {
+    width: 95%;
+    margin: 0 auto; /* Remove top margin on mobile */
   }
 
   .external-links {
     position: fixed;
-    bottom: 5px;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     text-align: center;
     font-size: 10px;
     padding: 3px;
+    background-color: rgba(30, 30, 30, 0.8); /* Semi-transparent background */
+    z-index: 1000;
   }
 
   .external-link {

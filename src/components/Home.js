@@ -59,9 +59,7 @@ function Home() {
     window.addEventListener('keydown', handleKeyDown);
 
     const checkMobile = () => {
-      const mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      console.log('Is mobile:', mobile); // Debug log
-      setIsMobile(mobile);
+      setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
     };
 
     checkMobile();
@@ -165,7 +163,6 @@ function Home() {
   };
 
   const focusInput = () => {
-    console.log('Focus input called'); // Debug log
     if (inputRef.current) {
       inputRef.current.focus();
       setShowStartTyping(false);
@@ -173,8 +170,6 @@ function Home() {
   };
 
   console.log('Welcome message:', welcomeMessage);
-
-  console.log('Render - isMobile:', isMobile, 'showStartTyping:', showStartTyping); // Debug log
 
   return (
     <div className="terminal-container" style={{ backgroundColor: '#2d2d2d', padding: '20px', borderRadius: '10px' }}>
@@ -190,7 +185,7 @@ function Home() {
               <div key={`output-${index}`} className="output-line">{line}</div>
             ))}
           </div>
-          {(isMobile || true) && showStartTyping && ( // Always show button for testing
+          {isMobile && showStartTyping && (
             <button className="start-typing-button" onClick={focusInput}>
               Start Typing
             </button>
@@ -204,10 +199,7 @@ function Home() {
               value={inputValue}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              onFocus={() => {
-                console.log('Input focused'); // Debug log
-                setShowStartTyping(false);
-              }}
+              onFocus={() => setShowStartTyping(false)}
               className={inputIsValid === null ? '' : inputIsValid ? 'valid-command' : 'invalid-command'}
             />
             <button type="submit" className="enter-button">Enter</button>
