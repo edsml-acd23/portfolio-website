@@ -6,12 +6,11 @@ const commands = {
   about: "I'm Andrei Danila, an ML Researcher/Engineer and recent graduate from Imperial College London. I consider myself a full-stack ML developer, with a special interest in SOTA models and their applications.",
   skills: "Machine Learning: Deep Learning (NLP, Vision, Generative), LLMs, classic ML \nTech stack: PyTorch, Tensorflow, HuggingFace, CUDA (C/C++), Google Cloud Platform, Docker, HPC.",
   projects: [
-    "1. Convolution Revolution: Wiener Filters for Embedded Text Comparison | Preprint:https://drive.google.com/file/d/1_d4VhU7QTNKGo7D7p5JyvcM21OTASp9r/view?usp=sharing | GitHub:https://github.com/example/convolution-revolution",
-    "2. Satellite Imagery Storm Prediction | GitHub:https://github.com/example/storm-prediction",
-    "3. Job Prepr: Practice Video Interviews with AI | GitHub:https://github.com/example/job-prepr | YouTube:https://youtube.com/watch?v=example"
+    "1. Convolution Revolution: Wiener Filters for Embedded Text Comparison | Preprint:https://drive.google.com/file/d/1_d4VhU7QTNKGo7D7p5JyvcM21OTASp9r/view?usp=sharing | GitHub:https://github.com/edsml-acd23/convolution_revolution",
+    "2. Job Prepr: Practice Video Interviews with AI | GitHub:https://github.com/edsml-acd23/job-prepr-model | YouTube:https://www.youtube.com/watch?t=4083&v=slVi4kWBiH4"
   ].join('\n'),
   contact: "You can reach me at:\nEmail: andrei.c.danila@gmail.com\nLinkedIn: https://www.linkedin.com/in/andreidanila10052000/",
-  cv: "Link available soon",
+  cv: "https://drive.google.com/file/d/1pl2eXsx_NE9-BxIFoF2GqlS-TaGA8S8i/view?usp=sharing",
   commands: "Available commands: about, skills, projects, contact, cv, pwd, clear, python",
   pwd: "~/Earth/UnitedKingdom/London",
   python: [
